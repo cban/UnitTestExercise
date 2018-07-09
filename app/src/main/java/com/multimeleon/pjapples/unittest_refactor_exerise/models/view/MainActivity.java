@@ -1,10 +1,8 @@
 package com.multimeleon.pjapples.unittest_refactor_exerise.models.view;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -12,21 +10,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.multimeleon.pjapples.unittest_refactor_exerise.R;
-import com.multimeleon.pjapples.unittest_refactor_exerise.models.model.SearchResponse;
 import com.multimeleon.pjapples.unittest_refactor_exerise.models.model.SearchResult;
 import com.multimeleon.pjapples.unittest_refactor_exerise.models.presenter.GitHubPresenter;
+import com.multimeleon.pjapples.unittest_refactor_exerise.models.repository.GitHubSearchRepositoryImp;
 import com.multimeleon.pjapples.unittest_refactor_exerise.models.service.GitHubApi;
+import com.multimeleon.pjapples.unittest_refactor_exerise.models.util.ApiUtils;
 
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-
-public class MainActivity extends AppCompatActivity  implements GitHubContract.View {
+public class MainActivity extends AppCompatActivity implements GitHubContract.View {
 
     private ReposRvAdapter rvAdapter;
 
@@ -35,9 +28,10 @@ public class MainActivity extends AppCompatActivity  implements GitHubContract.V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //Instantiate the Presenter
-        final GitHubPresenter mPresenter = new GitHubPresenter(this);
+        GitHubApi gitHubApi = ApiUtils.getGitHubApiInterface();
+        GitHubSearchRepositoryImp gitHubSearchRepositoryImp = new GitHubSearchRepositoryImp(gitHubApi);
+        final GitHubPresenter mPresenter = new GitHubPresenter(gitHubSearchRepositoryImp, this);
         final EditText etSearchQuery = findViewById(R.id.et_search_query);
-
 
         etSearchQuery.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

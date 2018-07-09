@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface GitHubContract {
 
-    interface View  {
-
+    interface View {
         void handleError(String message);
+
         void handleSearchResults(List<SearchResult> searchResults);
 
 
@@ -16,5 +16,6 @@ public interface GitHubContract {
 
     interface Presenter {
         void searchGitHubRepo(String query);
+
     }
 }
