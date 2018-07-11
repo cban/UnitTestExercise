@@ -11,7 +11,6 @@ public interface GitHubContract {
 
         void handleSearchResults(List<SearchResult> searchResults);
 
-
     }
 
     interface Presenter {

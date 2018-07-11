@@ -11,13 +11,13 @@ public class GitHubSearchRepositoryImp implements GitHubRepository {
     private GitHubApi gitHubApi;
 
     public GitHubSearchRepositoryImp(GitHubApi gitHubApi) {
+
         this.gitHubApi = gitHubApi;
     }
 
     @Override
     public Call<SearchResponse> searchGitHubRepository(String query) {
-        return gitHubApi.searchRepos(query);
-
+        return this.gitHubApi.searchRepos(query);
     }
 
 }
